@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mapa interactivo | Andres</title>
+  <meta name="description" content="Mini sitio con un mapa interactivo incrustado." />
+  <meta property="og:title" content="Mapa interactivo | Andres" />
+  <meta property="og:description" content="Explora el mapa interactivo directamente desde este mini sitio." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #0f172a;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #22d3ee;
+      --ring: rgba(56,189,248,.35);
+      --card: rgba(15,23,42,.7);
+      --border: rgba(148,163,184,.2);
+      --shadow: 0 20px 80px rgba(2,6,23,.6), 0 8px 30px rgba(2,6,23,.4);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1000px 600px at 10% -10%, rgba(34,211,238,.15), transparent 60%),
+                  radial-gradient(800px 500px at 90% 10%, rgba(56,189,248,.15), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg-soft));
+      background-attachment: fixed;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(2,6,23,.8), rgba(2,6,23,.2));
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: .75rem; padding: .75rem 0; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 6px 30px var(--ring);
+    }
+    .brand h1 { font-size: 1.1rem; margin: 0; letter-spacing: .2px; }
+
+    .hero {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 1.25rem; align-items: center;
+      margin: 2rem 0 1rem;
+    }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card-header { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); }
+    .card-title { margin: 0; font-weight: 700; letter-spacing: .2px; }
+    .card-body { padding: 0; }
+
+    .ratio { position: relative; width: 100%; padding-top: 56.25%; }
+    .ratio > iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0; border-radius: 0 0 18px 18px;
+    }
+
+    .panel { padding: 1.2rem; }
+
+    .actions { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: .8rem; }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: rgba(56,189,248,.1);
+      color: var(--text); padding: .7rem 1rem; border-radius: 12px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-flex; gap: .5rem; align-items: center;
+      transition: transform .08s ease, box-shadow .08s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--ring); }
+
+    footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem 0; flex-wrap: wrap; }
+    .credit a { color: var(--primary); text-decoration: none; border-bottom: 1px dotted var(--primary); }
+
+    .info-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container brand">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>Mapa interactivo</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Explora el mapa</h2>
+        </div>
+        <div class="card-body">
+          <div class="ratio">
+            <iframe
+              title="Mapa interactivo"
+              src="https://clausa.app.carto.com/map/2e2f63a0-3852-44e3-a1c0-df6f6d8da1e3"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </article>
+
+      <aside class="card panel">
+        <h3 style="margin-top:0">Sobre este mini sitio</h3>
+        <p>Este es un mapa interactivo para filtrar la población de la Zona Metropolitana de Monterrey por Nivel Socioeconómico, siendo A/B el nivel más alto y E el nivel más bajo.</p>
+        <div class="actions">
+          <a class="btn" href="https://clausa.app.carto.com/map/2e2f63a0-3852-44e3-a1c0-df6f6d8da1e3" target="_blank" rel="noopener">Abrir el mapa en pestaña nueva</a>
+          <a class="btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Volver arriba</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card panel" aria-label="Descripción">
+      <h3 style="margin-top:0">Descripción</h3>
+      <p class="info-text">Es importante notar que en la gráfica de pie los colores no están asignados con base en el mapa interactivo y que la suma que viene por cada Nivel Socioeconómico al poner el cursor sobre la gráfica de pie es la suma de manzanas que tienen ese Nivel Socioeconómico y no la suma de la población, ya que esa se encuentra en el widget con el mismo nombre "Población".</p>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <span class="credit">By Andres Gonzalez Roffe · <a href="https://www.linkedin.com/public-profile/settings/?trk=d_flagship3_profile_self_view_public_profile&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bi0PhKAnrQSCFvolWxSDd%2Bw%3D%3D" target="_blank" rel="noopener">LinkedIn</a></span>
+        <span class="credit">© <span id="y"></span> · Mini sitio estático</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
